@@ -1,136 +1,134 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi trabajo de sueños</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de la persona Usuaria</title>
 
-<link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2f24c9;
+            margin: 0;
+            padding: 30px;
+        }
 
-</head> <body>
-<div id="contenedor">
+        .contenedor {
+            background-color: rgb(175, 214, 221);
+            max-width: 450px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 50px 15px 50px 15px;
+            box-shadow: 0 0 10px #aaa;
+        }
 
-    <header>
-        <h1>Mi trabajo de sueños</h1>
+        h1 {
+            text-align: center;
+            color: #4c3ce0;
+            font-size: 25px;
+        }
 
-        <p class="subtitulo">
-            Ser desarrollador de software
-        </p>
-    </header>
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
 
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
 
-    <div class="seccion">
+        textarea {
+            resize: vertical;
+            height: 90px;
+        }
 
-        <h2>¿Cuál es mi trabajo de sueños?</h2>
+        .intereses label {
+            font-weight: normal;
+            margin-top: 8px;
+        }
 
-        <p>
-            Mi trabajo de sueños es ser
-            <span class="resaltado">desarrollador de software</span>,
-            porque me gustaría crear crear aplicaciones ya que me gusta mucho
-            la tecnología y además quiero aprender a superar nuevos retos,poder
-            demostrar que con esfuerzo y dedicación alcanzare mis metas.
-        </p>
+        button {
+            width: 100%;
+            background-color: #2455a4;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #173b78;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>Registro de la persona Usuaria</h1>
+
+        <form action="#" method="post">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre"
+                   placeholder="Escribe tu nombre" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido"
+                   placeholder="Escribe tu apellido" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo"
+                   placeholder="ejemplo@correo.com" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena"
+                   placeholder="Escribe tu contraseña" required>
+
+            <label for="descripcion">Breve descripción sobre ti:</label>
+            <textarea id="descripcion" name="descripcion"
+                      placeholder="Cuéntanos un poco sobre ti..."></textarea>
+
+            <label>Selecciona tus intereses:</label>
+
+            <div class="intereses">
+                <label>
+                    <input type="checkbox" name="intereses"
+                           value="Tecnología">
+                    Tecnología
+                </label>
+
+                <label>
+                    <input type="checkbox" name="intereses"
+                           value="Arte">
+                    Arte
+                </label>
+
+                <label>
+                    <input type="checkbox" name="intereses"
+                           value="Deporte">
+                    Deporte
+                </label>
+            </div>
+
+            <button type="submit">Registrarse</button>
+
+        </form>
 
     </div>
 
-
-    <div class="seccion">
-
-        <h2>¿Por qué me gustaría tener este trabajo?</h2>
-
-        <ul>
-            <li>Me gusta aprender de la tecnología y programación.</li>
-
-            <li>
-                Me gustaría crear soluciones utilizando software ya que 
-                la tecnología es importante e interesante.
-            </li>
-
-            <li>
-                Es una profesión que ofrece oportunidades para
-                seguir aprendiendo y creciendo profesionalmente.
-            </li>
-        </ul>
-
-    </div>
-
-
-    <div class="seccion">
-
-         <h2>Imagen relacionada con mi trabajo</h2>
-
-        <img src="programador.jpg.jpg"
-             alt="Persona trabajando en desarrollo de software"
-             class="imagen-trabajo">
-
-    </div>
-
-
-    <div class="seccion">
-
-        <h2>Pasos para lograr mi trabajo de sueños</h2>
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Paso</th>
-                    <th>Requisito</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>1</td>
-                    <td>Estudiar</td>
-                    <td>
-                        Prepararme académicamente en el área
-                        de desarrollo de software.
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <td>Aprender a programar perfectamente</td>
-                    <td>
-                        Practicar con diferentes herramientas
-                         y lenguajes.
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td>Realizar proyectos</td>
-                    <td>
-                        Crear proyectos que permitan desarrollar
-                        experiencia y habilidades.
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td>Buscar oportunidades</td>
-                    <td>
-                        Buscar empleos o proyectos
-                        relacionados con el desarrollo de software.
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-
-    <footer>
-
-        <p>
-            Mi objetivo es continuar aprendiendo y crecer
-            profesionalmente en el área de la  tecnología y poder 
-            tener mucho conocimiento.
-        </p>
-
-    </footer>
-
-</div>
-
-</body> </html>
+</body>
+</html>

@@ -3,132 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de la persona Usuaria</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2f24c9;
-            margin: 0;
-            padding: 30px;
-        }
+    <title>Calculadora básica</title>
 
-        .contenedor {
-            background-color: rgb(175, 214, 221);
-            max-width: 450px;
-            margin: auto;
-            padding: 25px;
-            border-radius: 50px 15px 50px 15px;
-            box-shadow: 0 0 10px #aaa;
-        }
+    <!-- Conexión con el archivo CSS -->
+    <link rel="stylesheet" href="styles.css">
 
-        h1 {
-            text-align: center;
-            color: #4c3ce0;
-            font-size: 25px;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-            height: 90px;
-        }
-
-        .intereses label {
-            font-weight: normal;
-            margin-top: 8px;
-        }
-
-        button {
-            width: 100%;
-            background-color: #2455a4;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            margin-top: 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #173b78;
-        }
-    </style>
+    <!-- Conexión con el archivo JavaScript -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <div class="contenedor">
+    <main class="calculadora">
 
-        <h1>Registro de la persona Usuaria</h1>
+        <!-- Título -->
+        <h1>Calculadora básica</h1>
 
-        <form action="#" method="post">
+        <!-- Pantalla donde aparecen los números y resultados -->
+        <input
+            type="text"
+            id="pantalla"
+            class="pantalla"
+            aria-label="Pantalla de la calculadora"
+            value="0"
+            readonly
+        >
 
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre"
-                   placeholder="Escribe tu nombre" required>
+        <!-- Botones de la calculadora -->
+        <section class="teclado">
 
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido"
-                   placeholder="Escribe tu apellido" required>
+            <!-- Primera fila -->
+            <button class="btn limpiar" data-action="clear">C</button>
+            <button class="btn operador" data-operator="/">÷</button>
+            <button class="btn operador" data-operator="*">×</button>
+            <button class="btn operador" data-operator="-">−</button>
 
-            <label for="correo">Correo Electrónico:</label>
-            <input type="email" id="correo" name="correo"
-                   placeholder="ejemplo@correo.com" required>
+            <!-- Segunda fila -->
+            <button class="btn numero" data-number="7">7</button>
+            <button class="btn numero" data-number="8">8</button>
+            <button class="btn numero" data-number="9">9</button>
+            <button class="btn operador" data-operator="+">+</button>
 
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" name="contrasena"
-                   placeholder="Escribe tu contraseña" required>
+            <!-- Tercera fila -->
+            <button class="btn numero" data-number="4">4</button>
+            <button class="btn numero" data-number="5">5</button>
+            <button class="btn numero" data-number="6">6</button>
+            <button class="btn igual" data-action="equals">=</button>
 
-            <label for="descripcion">Breve descripción sobre ti:</label>
-            <textarea id="descripcion" name="descripcion"
-                      placeholder="Cuéntanos un poco sobre ti..."></textarea>
+            <!-- Cuarta fila -->
+            <button class="btn numero" data-number="1">1</button>
+            <button class="btn numero" data-number="2">2</button>
+            <button class="btn numero" data-number="3">3</button>
 
-            <label>Selecciona tus intereses:</label>
+            <!-- Quinta fila -->
+            <button class="btn numero cero" data-number="0">0</button>
+            <button class="btn numero" data-action="decimal">.</button>
 
-            <div class="intereses">
-                <label>
-                    <input type="checkbox" name="intereses"
-                           value="Tecnología">
-                    Tecnología
-                </label>
+        </section>
 
-                <label>
-                    <input type="checkbox" name="intereses"
-                           value="Arte">
-                    Arte
-                </label>
-
-                <label>
-                    <input type="checkbox" name="intereses"
-                           value="Deporte">
-                    Deporte
-                </label>
-            </div>
-
-            <button type="submit">Registrarse</button>
-
-        </form>
-
-    </div>
+    </main>
 
 </body>
 </html>

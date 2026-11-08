@@ -1,126 +1,147 @@
-const pantalla = document.getElementById("pantalla");
+// DIRECCIÓN DE LA API
+const API_URL = "https://hacker-news.firebaseio.com/v0";
 
-let numeroActual = "0";
-let numeroAnterior = null;
-let operador = null;
-let reiniciarPantalla = false;
+// ELEMENTOS HTML
+const newsList = document.getElementById("news-list");
+const statusText = document.getElementById("status");
+const refreshButton = document.getElementById("refresh-button");
 
-// Mostrar números en pantalla
-function agregarNumero(numero) {
-    if (reiniciarPantalla) {
-        numeroActual = numero;
-        reiniciarPantalla = false;
-    } else if (numeroActual === "0") {
-        numeroActual = numero;
-    } else {
-        numeroActual += numero;
+// FUNCIÓN PARA CARGAR NOTICIAS
+async function cargarNoticias() {
+
+    refreshButton.disabled = true;
+    refreshButton.textContent = "Cargando...";
+
+    statusText.textContent = "Buscando noticias...";
+
+    newsList.innerHTML = "";
+
+    try {
+
+        // Obtener identificadores de noticias
+        const respuesta = await fetch(
+            API_URL + "/topstories.json"
+        );
+
+        if (!respuesta.ok) {
+            throw new Error("Error al conectar con la API");
+        }
+
+        const ids = await respuesta.json();
+
+        if (!ids || ids.length === 0) {
+            newsList.innerHTML =
+                '<p class="mensaje">No hay noticias disponibles.</p>';
+            return;
+        }
+
+        // Obtener las primeras 15 noticias
+        const primerosIds = ids.slice(0, 15);
+
+        const resultados = await Promise.allSettled(
+            primerosIds.map(async (id) => {
+
+                const response = await fetch(
+                    API_URL + "/item/" + id + ".json"
+                );
+
+                if (!response.ok) {
+                    throw new Error("Error al obtener noticia");
+                }
+
+                return await response.json();
+            })
+        );
+
+        // Filtrar noticias válidas
+        const noticias = resultados
+            .filter(resultado => resultado.status === "fulfilled")
+            .map(resultado => resultado.value)
+            .filter(noticia =>
+                noticia &&
+                noticia.type === "story" &&
+                noticia.title &&
+                !noticia.deleted &&
+                !noticia.dead
+            );
+
+        if (noticias.length === 0) {
+            newsList.innerHTML =
+                '<p class="mensaje">No se encontraron noticias.</p>';
+
+            statusText.textContent = "Sin resultados";
+            return;
+        }
+
+        // Mostrar noticias
+        noticias.forEach(noticia => {
+
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "news-card";
+
+            const titulo = document.createElement("h3");
+            const enlace = document.createElement("a");
+
+            enlace.href = noticia.url ||
+                ("https://news.ycombinator.com/item?id=" + noticia.id);
+
+            enlace.textContent = noticia.title;
+            enlace.target = "_blank";
+            enlace.rel = "noopener noreferrer";
+
+            titulo.appendChild(enlace);
+
+            const autor = document.createElement("p");
+            autor.textContent =
+                "Autor: " + (noticia.by || "Desconocido");
+
+            const puntos = document.createElement("p");
+            puntos.textContent =
+                "Puntuación: " + (noticia.score || 0);
+
+            const comentarios = document.createElement("p");
+            comentarios.textContent =
+                "Comentarios: " + (noticia.descendants || 0);
+
+            const leer = document.createElement("a");
+            leer.href = enlace.href;
+            leer.target = "_blank";
+            leer.rel = "noopener noreferrer";
+            leer.textContent = "Leer noticia completa";
+            leer.className = "leer";
+
+            tarjeta.appendChild(titulo);
+            tarjeta.appendChild(autor);
+            tarjeta.appendChild(puntos);
+            tarjeta.appendChild(comentarios);
+            tarjeta.appendChild(leer);
+
+            newsList.appendChild(tarjeta);
+
+        });
+
+        statusText.textContent =
+            "Se encontraron " + noticias.length + " noticias.";
+
+    } catch (error) {
+
+        console.error("Error:", error);
+
+        newsList.innerHTML =
+            '<p class="mensaje">No se pudieron cargar las noticias. Revisa tu conexión a Internet.</p>';
+
+        statusText.textContent = "Error al consultar las noticias.";
+
+    } finally {
+
+        refreshButton.disabled = false;
+        refreshButton.textContent = "Actualizar noticias";
+
     }
-
-    pantalla.value = numeroActual;
 }
 
-// Seleccionar operación
-function seleccionarOperador(op) {
-    if (operador !== null && !reiniciarPantalla) {
-        calcular();
-    }
+// BOTÓN PARA ACTUALIZAR
+refreshButton.addEventListener("click", cargarNoticias);
 
-    numeroAnterior = Number(numeroActual);
-    operador = op;
-    reiniciarPantalla = true;
-}
-
-// Realizar operación
-function calcular() {
-    if (operador === null || numeroAnterior === null) {
-        return;
-    }
-
-    const segundoNumero = Number(numeroActual);
-    let resultado;
-
-    switch (operador) {
-        case "+":
-            resultado = numeroAnterior + segundoNumero;
-            break;
-
-        case "-":
-            resultado = numeroAnterior - segundoNumero;
-            break;
-
-        case "*":
-            resultado = numeroAnterior * segundoNumero;
-            break;
-
-        case "/":
-            if (segundoNumero === 0) {
-                pantalla.value = "No se puede dividir entre 0";
-                limpiarVariables();
-                reiniciarPantalla = true;
-                return;
-            }
-            resultado = numeroAnterior / segundoNumero;
-            break;
-    }
-
-    numeroActual = String(Number(resultado.toPrecision(12)));
-    pantalla.value = numeroActual;
-
-    numeroAnterior = null;
-    operador = null;
-    reiniciarPantalla = true;
-}
-
-// Limpiar calculadora
-function limpiar() {
-    numeroActual = "0";
-    numeroAnterior = null;
-    operador = null;
-    reiniciarPantalla = false;
-
-    pantalla.value = "0";
-}
-
-function limpiarVariables() {
-    numeroActual = "0";
-    numeroAnterior = null;
-    operador = null;
-}
-
-// Agregar punto decimal
-function agregarDecimal() {
-    if (reiniciarPantalla) {
-        numeroActual = "0.";
-        reiniciarPantalla = false;
-    } else if (!numeroActual.includes(".")) {
-        numeroActual += ".";
-    }
-
-    pantalla.value = numeroActual;
-}
-
-// Conectar botones numéricos
-document.querySelectorAll("[data-number]").forEach(boton => {
-    boton.addEventListener("click", () => {
-        agregarNumero(boton.dataset.number);
-    });
-});
-
-// Conectar botones de operaciones
-document.querySelectorAll("[data-operator]").forEach(boton => {
-    boton.addEventListener("click", () => {
-        seleccionarOperador(boton.dataset.operator);
-    });
-});
-
-// Conectar botón igual
-document.querySelector('[data-action="equals"]')
-    .addEventListener("click", calcular);
-
-// Conectar botón limpiar
-document.querySelector('[data-action="clear"]')
-    .addEventListener("click", limpiar);
-
-// Conectar punto decimal
-document.querySelector('[data-action="decimal"]')
-    .addEventListener("click", agregarDecimal);
+// CARGAR NOTICIAS AUTOMÁTICAMENTE
+cargarNoticias();

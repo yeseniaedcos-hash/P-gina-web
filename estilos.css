@@ -1,0 +1,158 @@
+/* ESTILOS GENERALES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFF0F4;
+    color: #4A2435;
+}
+
+/* ENCABEZADO */
+header {
+    background: linear-gradient(135deg, #642B45, #A94F70);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #FFE0EA;
+    font-size: 16px;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+.noticias h2 {
+    color: #642B45;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* BOTÓN ACTUALIZAR */
+button {
+    background-color: #D77A9A;
+    color: white;
+    border: none;
+    padding: 13px 23px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #A94F70;
+    transform: scale(1.04);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* CONTENEDOR DE NOTICIAS */
+#news-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+}
+
+/* TARJETAS */
+.news-card {
+    background-color: white;
+    padding: 22px;
+    border-radius: 12px;
+    border-left: 5px solid #D77A9A;
+    box-shadow: 0 4px 12px rgba(100, 43, 69, 0.12);
+    transition: 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(100, 43, 69, 0.20);
+}
+
+.news-card h3 {
+    margin-bottom: 14px;
+}
+
+.news-card h3 a {
+    color: #642B45;
+    text-decoration: none;
+}
+
+.news-card h3 a:hover {
+    color: #D77A9A;
+    text-decoration: underline;
+}
+
+.news-card p {
+    color: #806575;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* ENLACE LEER NOTICIA */
+.news-card a.leer {
+    color: #A94F70;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.news-card a.leer:hover {
+    color: #642B45;
+    text-decoration: underline;
+}
+
+/* MENSAJES */
+#status {
+    color: #A94F70;
+    margin-bottom: 15px;
+}
+
+.mensaje {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #642B45;
+}
+
+/* PIE DE PÁGINA */
+footer {
+    background: linear-gradient(135deg, #642B45, #A94F70);
+    color: white;
+    text-align: center;
+    padding: 22px;
+    margin-top: 40px;
+}
+
+/* DISEÑO RESPONSIVO */
+@media (max-width: 600px) {
+    main {
+        width: 95%;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    #news-list {
+        grid-template-columns: 1fr;
+    }
+}
